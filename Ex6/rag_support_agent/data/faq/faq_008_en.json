@@ -1,0 +1,13 @@
+{
+  "doc_id": "faq_008_en",
+  "text": "You can export your data at any time from Settings > Data Export. Exports include account data, usage history, and billing records in CSV or JSON format. Large exports (over 1GB) are processed asynchronously and a download link is emailed within 24 hours.",
+  "product": "all",
+  "version": "all",
+  "language": "en",
+  "category": "account",
+  "created_at": "2025-03-10",
+  "updated_at": "2025-03-10",
+  "customer_tier": "all",
+  "access_level": "public",
+  "source": "faq_kb"
+}

@@ -1,0 +1,13 @@
+{
+  "doc_id": "faq_005",
+  "text": "Hóa đơn (invoice) được gửi tự động qua email đăng ký vào ngày đầu mỗi chu kỳ thanh toán. Bạn cũng có thể tải hóa đơn PDF trực tiếp trong Cài đặt > Thanh toán > Lịch sử hóa đơn. Nếu cần xuất hóa đơn VAT cho doanh nghiệp, hãy cập nhật thông tin công ty trong phần Thông tin thanh toán trước ngày xuất hóa đơn.",
+  "product": "all",
+  "version": "all",
+  "language": "vi",
+  "category": "billing",
+  "created_at": "2025-02-22",
+  "updated_at": "2025-02-22",
+  "customer_tier": "all",
+  "access_level": "public",
+  "source": "faq_kb"
+}

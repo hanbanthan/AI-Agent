@@ -1,0 +1,13 @@
+{
+  "doc_id": "doc_e4021_old",
+  "text": "Error E-4021 xảy ra do lỗi máy chủ tạm thời. Cách khắc phục: chờ 24 giờ rồi thử lại, hoặc cài đặt lại toàn bộ ứng dụng.",
+  "product": "ProductX",
+  "version": "1.0",
+  "language": "vi",
+  "category": "connectivity",
+  "created_at": "2024-01-01",
+  "updated_at": "2024-01-01",
+  "customer_tier": "all",
+  "access_level": "public",
+  "source": "support_kb"
+}

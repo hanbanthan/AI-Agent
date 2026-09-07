@@ -1,0 +1,13 @@
+{
+  "doc_id": "doc_e5010",
+  "text": "Error E-5010 xuất hiện khi dung lượng lưu trữ (storage quota) của tài khoản đã đầy. Kiểm tra dung lượng đang dùng tại Cài đặt > Lưu trữ. Cách khắc phục: xóa file không cần thiết, hoặc nâng cấp gói dịch vụ để tăng quota. Lưu ý: file trong thùng rác (trash) vẫn tính vào quota cho đến khi bị xóa vĩnh viễn sau 30 ngày.",
+  "product": "ProductX",
+  "version": "all",
+  "language": "vi",
+  "category": "storage",
+  "created_at": "2025-03-15",
+  "updated_at": "2025-03-15",
+  "customer_tier": "all",
+  "access_level": "public",
+  "source": "support_kb"
+}

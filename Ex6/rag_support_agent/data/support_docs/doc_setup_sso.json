@@ -1,0 +1,13 @@
+{
+  "doc_id": "doc_setup_sso",
+  "text": "Để cấu hình Single Sign-On (SSO) qua SAML 2.0, vào Cài đặt > Bảo mật doanh nghiệp > SSO. Cần cung cấp: Entity ID, SSO URL, và certificate X.509 từ nhà cung cấp danh tính (Identity Provider) như Okta hoặc Azure AD. Sau khi lưu cấu hình, test đăng nhập bằng 1 tài khoản thử trước khi bắt buộc toàn bộ tổ chức dùng SSO.",
+  "product": "ProductX",
+  "version": "3.0",
+  "language": "vi",
+  "category": "security",
+  "created_at": "2025-04-20",
+  "updated_at": "2025-04-20",
+  "customer_tier": "enterprise",
+  "access_level": "public",
+  "source": "support_kb"
+}

@@ -1,0 +1,13 @@
+{
+  "doc_id": "faq_billing_001",
+  "text": "Bạn có thể nâng cấp hoặc hạ cấp gói dịch vụ bất kỳ lúc nào trong phần Cài đặt > Gói dịch vụ. Thay đổi sẽ được tính phí theo tỷ lệ (prorated) cho phần thời gian còn lại của chu kỳ thanh toán hiện tại.",
+  "product": "all",
+  "version": "all",
+  "language": "vi",
+  "category": "billing",
+  "created_at": "2025-02-01",
+  "updated_at": "2025-02-01",
+  "customer_tier": "all",
+  "access_level": "public",
+  "source": "faq_kb"
+}

@@ -1,0 +1,13 @@
+{
+  "doc_id": "ticket_9250",
+  "text": "Sau khi migrate từ v2 lên v3 API, khách hàng báo toàn bộ integration bị lỗi parse response. Nguyên nhân: code của khách hàng vẫn đang đọc field 'user_id' (snake_case) trong khi v3 đã đổi thành 'userId' (camelCase) theo doc_migration_v2_v3. Đã hướng dẫn khách cập nhật code, đồng thời đề xuất team product cân nhắc hỗ trợ cả 2 format trong giai đoạn chuyển tiếp 6 tháng.",
+  "product": "ProductX",
+  "version": "3.0",
+  "language": "vi",
+  "category": "migration",
+  "created_at": "2025-07-10",
+  "updated_at": "2025-07-10",
+  "customer_tier": "enterprise",
+  "access_level": "internal",
+  "source": "ticket_system"
+}

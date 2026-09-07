@@ -1,0 +1,13 @@
+{
+  "doc_id": "doc_e4021_v3",
+  "text": "Cập nhật cho version 3.x: Error E-4021 ở bản 3.0 trở lên có nguyên nhân khác bản 2.0 — do thay đổi cơ chế xác thực sang OAuth 2.0. Cách khắc phục: kiểm tra client_id/client_secret còn hợp lệ, và đảm bảo redirect_uri đã đăng ký khớp chính xác với URL đang dùng (kể cả http vs https).",
+  "product": "ProductX",
+  "version": "3.0",
+  "language": "vi",
+  "category": "connectivity",
+  "created_at": "2025-06-20",
+  "updated_at": "2025-06-20",
+  "customer_tier": "all",
+  "access_level": "public",
+  "source": "support_kb"
+}

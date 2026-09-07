@@ -1,0 +1,13 @@
+{
+  "doc_id": "ticket_9013",
+  "text": "Một khách hàng khác cũng gặp CPU cao bất thường trên version 3.1, nguyên nhân khác: cấu hình cache size quá nhỏ khiến hệ thống liên tục tính lại dữ liệu. Khắc phục bằng cách tăng cache_size trong config lên tối thiểu 512MB.",
+  "product": "ProductX",
+  "version": "3.1",
+  "language": "vi",
+  "category": "performance",
+  "created_at": "2025-06-02",
+  "updated_at": "2025-06-02",
+  "customer_tier": "all",
+  "access_level": "internal",
+  "source": "ticket_system"
+}

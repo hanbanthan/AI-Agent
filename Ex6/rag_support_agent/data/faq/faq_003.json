@@ -1,0 +1,13 @@
+{
+  "doc_id": "faq_003",
+  "text": "Nếu bạn quên mã 2FA hoặc mất thiết bị xác thực, hãy dùng 1 trong 10 mã khôi phục (backup code) được cấp khi bật 2FA lần đầu. Nếu không còn mã khôi phục nào, liên hệ hỗ trợ và cung cấp thông tin xác minh danh tính để được mở khóa thủ công trong vòng 24-48 giờ.",
+  "product": "all",
+  "version": "all",
+  "language": "vi",
+  "category": "security",
+  "created_at": "2025-02-16",
+  "updated_at": "2025-02-16",
+  "customer_tier": "all",
+  "access_level": "public",
+  "source": "faq_kb"
+}

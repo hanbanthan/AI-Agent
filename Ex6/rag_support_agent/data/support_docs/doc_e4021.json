@@ -1,0 +1,13 @@
+{
+  "doc_id": "doc_e4021",
+  "text": "Error E-4021 xảy ra khi ứng dụng không thể kết nối tới máy chủ xác thực. Nguyên nhân thường gặp: firewall công ty chặn cổng 443, hoặc thời gian hệ thống lệch quá 5 phút so với thời gian chuẩn. Cách khắc phục: đồng bộ lại thời gian hệ thống, kiểm tra firewall cho phép kết nối tới auth.service.example.com.",
+  "product": "ProductX",
+  "version": "2.0",
+  "language": "vi",
+  "category": "connectivity",
+  "created_at": "2025-03-01",
+  "updated_at": "2025-06-15",
+  "customer_tier": "all",
+  "access_level": "public",
+  "source": "support_kb"
+}

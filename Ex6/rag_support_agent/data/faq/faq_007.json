@@ -1,0 +1,13 @@
+{
+  "doc_id": "faq_007",
+  "text": "Rate limit mặc định cho API là 100 request/phút cho gói Free và 1000 request/phút cho gói Enterprise. Nếu vượt rate limit, API trả về mã lỗi 429 kèm header Retry-After cho biết số giây cần chờ trước khi thử lại. Cân nhắc dùng exponential backoff khi retry để tránh bị chặn tạm thời.",
+  "product": "ProductX",
+  "version": "all",
+  "language": "vi",
+  "category": "api",
+  "created_at": "2025-03-06",
+  "updated_at": "2025-03-06",
+  "customer_tier": "all",
+  "access_level": "public",
+  "source": "faq_kb"
+}

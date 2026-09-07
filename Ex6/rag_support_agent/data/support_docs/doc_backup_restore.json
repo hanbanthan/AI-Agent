@@ -1,0 +1,13 @@
+{
+  "doc_id": "doc_backup_restore",
+  "text": "Hệ thống tự động backup dữ liệu mỗi 6 giờ, lưu trữ 30 bản backup gần nhất. Để khôi phục (restore) về 1 thời điểm cụ thể, liên hệ hỗ trợ kỹ thuật với thời gian mong muốn khôi phục — quá trình restore thường mất 2-4 giờ và sẽ ghi đè toàn bộ dữ liệu hiện tại, nên cần xác nhận rõ trước khi thực hiện.",
+  "product": "all",
+  "version": "all",
+  "language": "vi",
+  "category": "data",
+  "created_at": "2025-06-25",
+  "updated_at": "2025-06-25",
+  "customer_tier": "enterprise",
+  "access_level": "internal",
+  "source": "support_kb"
+}

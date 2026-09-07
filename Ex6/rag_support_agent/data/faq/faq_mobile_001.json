@@ -1,0 +1,13 @@
+{
+  "doc_id": "faq_mobile_001",
+  "text": "Ứng dụng di động ProductX Mobile hỗ trợ iOS 14 trở lên và Android 8 trở lên. Nếu ứng dụng bị crash liên tục sau khi cập nhật, hãy thử xóa cache ứng dụng (Cài đặt điện thoại > Ứng dụng > ProductX > Xóa bộ nhớ đệm) trước khi gỡ cài đặt lại hoàn toàn.",
+  "product": "ProductX Mobile",
+  "version": "all",
+  "language": "vi",
+  "category": "mobile",
+  "created_at": "2025-04-01",
+  "updated_at": "2025-04-01",
+  "customer_tier": "all",
+  "access_level": "public",
+  "source": "faq_kb"
+}

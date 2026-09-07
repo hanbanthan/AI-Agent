@@ -1,0 +1,13 @@
+{
+  "doc_id": "doc_webhook_setup",
+  "text": "Webhook cho phép nhận thông báo real-time khi có sự kiện (VD: đơn hàng mới, thanh toán thành công). Cấu hình tại Cài đặt > Developer > Webhooks, nhập URL endpoint của bạn. Mỗi request webhook có header X-Signature để xác minh nguồn gốc — LUÔN verify signature này trước khi xử lý payload để tránh giả mạo request.",
+  "product": "ProductX",
+  "version": "all",
+  "language": "vi",
+  "category": "api",
+  "created_at": "2025-05-10",
+  "updated_at": "2025-05-10",
+  "customer_tier": "enterprise",
+  "access_level": "public",
+  "source": "support_kb"
+}

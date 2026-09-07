@@ -1,0 +1,13 @@
+{
+  "doc_id": "doc_e3002",
+  "text": "Error E-3002 (Invalid Token) xảy ra khi access token đã hết hạn hoặc bị thu hồi. Access token có thời hạn 1 giờ. Ứng dụng cần dùng refresh token để lấy access token mới trước khi hết hạn, thay vì yêu cầu người dùng đăng nhập lại. Nếu refresh token cũng đã hết hạn (30 ngày không hoạt động), người dùng bắt buộc phải đăng nhập lại từ đầu.",
+  "product": "ProductX",
+  "version": "2.0",
+  "language": "vi",
+  "category": "connectivity",
+  "created_at": "2025-04-10",
+  "updated_at": "2025-04-10",
+  "customer_tier": "all",
+  "access_level": "public",
+  "source": "support_kb"
+}

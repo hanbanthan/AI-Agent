@@ -1,0 +1,13 @@
+{
+  "doc_id": "ticket_8560",
+  "text": "Khách hàng báo lỗi E-3002 (Invalid Token) xảy ra liên tục dù mới đăng nhập vài phút trước. Sau khi kiểm tra, phát hiện đồng hồ hệ thống của khách hàng lệch 15 phút so với giờ chuẩn (do máy chủ khách hàng không đồng bộ NTP), khiến token bị coi là hết hạn ngay khi vừa cấp. Đã hướng dẫn khách cấu hình lại NTP sync.",
+  "product": "ProductX",
+  "version": "2.0",
+  "language": "vi",
+  "category": "connectivity",
+  "created_at": "2025-06-01",
+  "updated_at": "2025-06-01",
+  "customer_tier": "enterprise",
+  "access_level": "internal",
+  "source": "ticket_system"
+}

@@ -1,0 +1,13 @@
+{
+  "doc_id": "ticket_8102",
+  "text": "Khách hàng doanh nghiệp báo cáo webhook không nhận được sự kiện nào trong 3 ngày dù cấu hình đúng URL. Nguyên nhân xác định: endpoint của khách hàng trả về status code 500 liên tục do lỗi server phía họ, hệ thống tự động tắt webhook sau 50 lần thất bại liên tiếp (theo chính sách circuit breaker). Đã hướng dẫn khách fix lỗi server và bật lại webhook thủ công trong Cài đặt.",
+  "product": "ProductX",
+  "version": "all",
+  "language": "vi",
+  "category": "api",
+  "created_at": "2025-05-15",
+  "updated_at": "2025-05-15",
+  "customer_tier": "enterprise",
+  "access_level": "internal",
+  "source": "ticket_system"
+}

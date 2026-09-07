@@ -1,0 +1,13 @@
+{
+  "doc_id": "ticket_8821",
+  "text": "Khách hàng báo cáo server CPU đạt 100% liên tục sau khi nâng cấp lên ProductX version 3.1. Nguyên nhân xác định: một background job đồng bộ dữ liệu bị lặp vô hạn do thay đổi API trong bản 3.1. Đã fix bằng cách downgrade tạm về version 3.0 và áp dụng patch 3.1.2 khi có bản vá.",
+  "product": "ProductX",
+  "version": "3.1",
+  "language": "vi",
+  "category": "performance",
+  "created_at": "2025-05-20",
+  "updated_at": "2025-05-20",
+  "customer_tier": "all",
+  "access_level": "internal",
+  "source": "ticket_system"
+}

@@ -1,0 +1,13 @@
+{
+  "doc_id": "ticket_9401",
+  "text": "Khách hàng báo cáo dung lượng lưu trữ báo đầy (E-5010) dù đã xóa nhiều file. Nguyên nhân: file đã xóa vẫn nằm trong thùng rác (trash) và tính vào quota trong 30 ngày theo chính sách — khách hàng không biết điều này. Đã hướng dẫn khách vào mục Thùng rác để xóa vĩnh viễn ngay lập tức thay vì chờ 30 ngày.",
+  "product": "ProductX",
+  "version": "all",
+  "language": "vi",
+  "category": "storage",
+  "created_at": "2025-07-18",
+  "updated_at": "2025-07-18",
+  "customer_tier": "all",
+  "access_level": "internal",
+  "source": "ticket_system"
+}

@@ -1,0 +1,13 @@
+{
+  "doc_id": "doc_e2001_rate_limit",
+  "text": "Error E-2001 (Rate Limit Exceeded) khác với lỗi 429 thông thường — đây là giới hạn ở tầng WAF (Web Application Firewall) khi phát hiện traffic bất thường từ 1 IP (thường do bot hoặc misconfigured retry loop). Không thể khắc phục bằng cách retry — cần liên hệ hỗ trợ để whitelist IP nếu là traffic hợp lệ.",
+  "product": "ProductX",
+  "version": "all",
+  "language": "vi",
+  "category": "connectivity",
+  "created_at": "2025-07-01",
+  "updated_at": "2025-07-01",
+  "customer_tier": "all",
+  "access_level": "public",
+  "source": "support_kb"
+}

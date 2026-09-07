@@ -1,0 +1,13 @@
+{
+  "doc_id": "faq_006",
+  "text": "API key được tạo trong Cài đặt > Developer > API Keys. Mỗi tài khoản được tạo tối đa 5 API key đang hoạt động cùng lúc. API key có quyền truy cập tương đương tài khoản tạo ra nó — không chia sẻ API key qua email hoặc chat công khai. Nếu nghi ngờ bị lộ, thu hồi (revoke) ngay trong cùng trang.",
+  "product": "ProductX",
+  "version": "all",
+  "language": "vi",
+  "category": "api",
+  "created_at": "2025-03-05",
+  "updated_at": "2025-03-05",
+  "customer_tier": "enterprise",
+  "access_level": "public",
+  "source": "faq_kb"
+}

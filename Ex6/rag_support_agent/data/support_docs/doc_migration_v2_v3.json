@@ -1,0 +1,13 @@
+{
+  "doc_id": "doc_migration_v2_v3",
+  "text": "Hướng dẫn nâng cấp từ ProductX version 2.0 lên 3.0: (1) Backup toàn bộ dữ liệu trước khi nâng cấp. (2) API endpoint /v2/ sẽ ngừng hỗ trợ sau ngày 2025-12-31, cần chuyển sang /v3/. (3) Định dạng response JSON ở v3 đổi field 'user_id' thành 'userId' (camelCase) — cần cập nhật code parse response. (4) Rate limit ở v3 tính theo API key thay vì theo IP như v2.",
+  "product": "ProductX",
+  "version": "3.0",
+  "language": "vi",
+  "category": "migration",
+  "created_at": "2025-05-01",
+  "updated_at": "2025-05-01",
+  "customer_tier": "enterprise",
+  "access_level": "public",
+  "source": "support_kb"
+}

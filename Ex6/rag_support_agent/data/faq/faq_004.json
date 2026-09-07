@@ -1,0 +1,13 @@
+{
+  "doc_id": "faq_004",
+  "text": "Bạn có thể hủy gói dịch vụ bất kỳ lúc nào trong phần Cài đặt > Gói dịch vụ > Hủy gói. Sau khi hủy, bạn vẫn được sử dụng đầy đủ tính năng đến hết chu kỳ thanh toán hiện tại, không được hoàn tiền cho phần thời gian còn lại trừ khi hủy trong 14 ngày đầu (chính sách hoàn tiền).",
+  "product": "all",
+  "version": "all",
+  "language": "vi",
+  "category": "billing",
+  "created_at": "2025-02-20",
+  "updated_at": "2025-02-20",
+  "customer_tier": "all",
+  "access_level": "public",
+  "source": "faq_kb"
+}
