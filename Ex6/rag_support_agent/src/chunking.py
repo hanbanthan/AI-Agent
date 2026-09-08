@@ -4,7 +4,7 @@ chunking.py - Cắt RawDoc thành các chunk
 chunk_size/overlap_ratio đọc default từ config.py - truyền tham số khác vào để chạy experiment 
 VD: so sánh Recall@K giữa các chunk_size
 """
-from models import RawDoc, Chunk
+from src.models import RawDoc, Chunk
 
 def chunk_document(doc: RawDoc, chunk_size: int, overlap_ratio: float) -> list[Chunk]:
     words = doc.text.split()

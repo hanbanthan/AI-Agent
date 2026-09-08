@@ -10,7 +10,7 @@ system API...), chỉ cần sửa file này.
 
 import json
 from pathlib import Path
-from models import RawDoc
+from src.models import RawDoc
 
 def _load_json_dir(directory: Path, document_type: str) -> list[RawDoc]:
     docs = []

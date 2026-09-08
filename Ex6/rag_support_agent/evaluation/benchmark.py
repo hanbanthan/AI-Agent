@@ -35,3 +35,27 @@ def print_benchmark_results(table: dict):
     print("-" * 48)
     for name, m in table.items():
         print(f"{name:<14}{m['recall@k']:>10}{m['precision@k']:>14}{m['mrr']:>8}")
+
+def main():
+    import config
+    from src.ingestion import load_documents
+    from src.chunking import chunk_documents
+    from src.vector_store import VectorStore
+    from src.bm25 import BM25Store
+    from evaluation.dataset import build_eval_dataset
+
+    docs = load_documents(config.DATA_DIR, config.SUPPORT_DOCS_DIR, config.TICKETS_DIR)
+    chunks = chunk_documents(docs, chunk_size=config.CHUNK_SIZE, overlap_ratio=config.CHUNK_OVERLAP_RATIO)
+    vector_store = VectorStore.build(chunks)
+    bm25_store = BM25Store.build(chunks)
+    eval_cases = build_eval_dataset(chunks)
+
+    print(f"Loaded {len(docs)} documents -> {len(chunks)} chunks "
+          f"(chunk_size={config.CHUNK_SIZE}, overlap={config.CHUNK_OVERLAP_RATIO})")
+    print(f"Eval dataset: {len(eval_cases)} test cases\n")
+
+    table = run_benchmark(eval_cases, vector_store, bm25_store, top_k=5)
+    print_benchmark_results(table)
+
+if __name__ == "__main__":
+    main()
