@@ -1,3 +1,5 @@
 rank_bm25
 scikit-learn
 numpy
+google-genai
+python-dotenv
