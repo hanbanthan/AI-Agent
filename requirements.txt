@@ -3,3 +3,4 @@ scikit-learn
 numpy
 google-genai
 python-dotenv
+pytest>=8.0
