@@ -8,12 +8,6 @@ from agent_engineer.tools.types import (
 	ToolSchema,
 )
 
-def __getattr__(name: str):
-	if name == "RAGTool":
-		from agent_engineer.rag.tool import RAGTool
-
-		return RAGTool
-	raise AttributeError(name)
 
 
 __all__ = [

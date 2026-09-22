@@ -5,6 +5,7 @@ from agent_engineer.llm.base import LLM
 from agent_engineer.llm.types import LLMRequest, Message
 from agent_engineer.tools.executor import ToolExecutor
 from agent_engineer.planning.base import Planner
+from agent_engineer.memory.manager import MemoryManager
 from copy import deepcopy
 from typing import Any
 
@@ -14,6 +15,7 @@ class AgentLoop:
         llm: LLM,
         tool_executor: ToolExecutor | None = None,
         planner: Planner | None = None,
+        memory_manager: MemoryManager | None = None,
         max_steps: int = 10,
     ) -> None:
         if max_steps <= 0:
@@ -21,6 +23,7 @@ class AgentLoop:
         self.llm = llm
         self.tool_executor = tool_executor
         self.planner = planner
+        self.memory_manager = memory_manager
         self.max_steps = max_steps
 
     def run(self, state: AgentState, goal: str | None = None) -> AgentState:
@@ -42,7 +45,7 @@ class AgentLoop:
                 )
 
             request = LLMRequest(
-                messages=self._build_messages(state),
+                messages=self._build_messages(state, goal or ""),
             )
 
             response = self.llm.generate(request)
@@ -125,23 +128,42 @@ class AgentLoop:
     def _build_messages(
             self,
             state: AgentState,
+            goal: str,
     ) -> list[Message]:
-        messages = list(state.messages)
 
-        if state.plan is None:
-            return messages
+        context_messages: list[Message] = []
 
-        plan_message = Message(
-            role="system",
-            content=(
-                "Current execution plan:\n"
-                f"{state.plan.to_text()}\n"
-            ),
-        )
+        if state.plan is not None:
+            context_messages.append(
+                Message(
+                    role="system",
+                    content=f"Current execution plan: {state.plan.to_text()}",
+                )
+            )
+        if self.memory_manager is not None:
 
-        return [
-            plan_message,
-            *messages,
+            memories = (
+                self.memory_manager.retrieve_relevant(
+                    query=goal,
+                    limit=5,
+                )
+            )
+
+            if memories:
+                memory_text = "\n".join(
+                    f"- {item.content}" for item in memories
+                )
+
+                context_messages.append(
+                    Message(
+                        role="system",
+                        content=f"Relevant memories:\n{memory_text}",
+                    )
+                )
+
+        return [ 
+            *context_messages,
+            *state.messages,
         ]
 
     def _update_plan(

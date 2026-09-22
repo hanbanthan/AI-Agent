@@ -4,7 +4,7 @@ from agent_engineer.llm import (
     MockLLM,
 )
 from agent_engineer.rag import RAGPipeline
-from agent_engineer.tools import RAGTool
+from agent_engineer.rag.tool import RAGTool
 from agent_engineer.tools import (
     ToolCall,
     ToolExecutor,
