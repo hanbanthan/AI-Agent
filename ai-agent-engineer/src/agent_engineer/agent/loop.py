@@ -2,12 +2,23 @@ from agent_engineer.agent.errors import MaxStepsExceededError
 from agent_engineer.agent.state import AgentState
 from agent_engineer.agent.trajectory import AgentStep, StepType
 from agent_engineer.llm.base import LLM
-from agent_engineer.llm.types import LLMRequest, Message
+from agent_engineer.llm.types import LLMRequest, LLMResponse, Message
 from agent_engineer.tools.executor import ToolExecutor
 from agent_engineer.planning.base import Planner
 from agent_engineer.memory.manager import MemoryManager
 from copy import deepcopy
 from typing import Any
+from agent_engineer.agent.loop_guard import(
+    LoopDetector,
+    LoopPolicy
+)
+from agent_engineer.resilience.retry import (
+    RetryExecutor,
+    RetryPolicy,
+)
+from agent_engineer.llm.validation import (
+    validate_llm_response,
+)
 
 class AgentLoop:
     def __init__(
@@ -16,6 +27,8 @@ class AgentLoop:
         tool_executor: ToolExecutor | None = None,
         planner: Planner | None = None,
         memory_manager: MemoryManager | None = None,
+        retry_policy: RetryPolicy | None = None,
+        loop_policy: LoopPolicy | None = None,
         max_steps: int = 10,
     ) -> None:
         if max_steps <= 0:
@@ -26,7 +39,25 @@ class AgentLoop:
         self.memory_manager = memory_manager
         self.max_steps = max_steps
 
-    def run(self, state: AgentState, goal: str | None = None) -> AgentState:
+        self.retry_executor = (
+            RetryExecutor(retry_policy)
+            if retry_policy is not None
+            else None
+        )
+        self.loop_detector = (
+            LoopDetector(loop_policy)
+            if loop_policy is not None
+            else None
+        )
+
+    def run(
+        self, 
+        state: AgentState, 
+        goal: str | None = None
+    ) -> AgentState:
+        
+        loop_detector = self.loop_detector
+
         if self.planner is not None and state.plan is None:
             state.plan = self.planner.create_plan(goal or "")
             state.plan.start()
@@ -48,7 +79,15 @@ class AgentLoop:
                 messages=self._build_messages(state, goal or ""),
             )
 
-            response = self.llm.generate(request)
+            def generate() -> LLMResponse:
+                return self.llm.generate(request)
+
+            if self.retry_executor is None:
+                response = generate()
+            else:
+                response = self.retry_executor.execute(generate)
+
+            validate_llm_response(response)
 
             state.increment_step()
 
@@ -87,6 +126,9 @@ class AgentLoop:
 
             observations = []
             for tool_call in response.tool_calls:
+
+                if loop_detector is not None:
+                    loop_detector.record_tool_call(tool_call)
 
                 state.trajectory.add(
                     AgentStep(

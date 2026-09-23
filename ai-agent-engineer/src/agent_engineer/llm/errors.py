@@ -1,4 +1,6 @@
-class LLMError(Exception):
+from agent_engineer.errors import AgentError
+
+class LLMError(AgentError):
     """Base class for all LLM-related errors."""
     retryable: bool = False
 

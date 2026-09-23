@@ -8,6 +8,8 @@ from agent_engineer.llm.types import Message
 from agent_engineer.tools.executor import ToolExecutor
 from agent_engineer.planning.base import Planner
 from agent_engineer.memory.manager import MemoryManager
+from agent_engineer.resilience.retry import RetryPolicy
+from agent_engineer.agent.loop_guard import LoopPolicy
 
 @dataclass(frozen=True)
 class AgentResult:
@@ -22,6 +24,8 @@ class Agent:
         tool_executor: ToolExecutor | None = None,
         planner: Planner | None = None,
         memory_manager: MemoryManager | None = None,
+        retry_policy: RetryPolicy | None = None,
+        loop_policy: LoopPolicy | None = None,
         max_steps: int = 10,
     ) -> None:
         self._loop = AgentLoop(
@@ -29,6 +33,8 @@ class Agent:
             tool_executor=tool_executor, 
             planner=planner,  
             memory_manager=memory_manager,
+            retry_policy=retry_policy,
+            loop_policy=loop_policy,
             max_steps=max_steps)
 
     def run(self, user_input: str) -> AgentResult:
