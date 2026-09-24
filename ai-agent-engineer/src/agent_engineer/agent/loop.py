@@ -19,6 +19,12 @@ from agent_engineer.resilience.retry import (
 from agent_engineer.llm.validation import (
     validate_llm_response,
 )
+from agent_engineer.security.guardrails import (
+    SecurityGuard,
+)
+from agent_engineer.security.policy import (
+    SecurityContext,
+)
 
 class AgentLoop:
     def __init__(
@@ -29,6 +35,7 @@ class AgentLoop:
         memory_manager: MemoryManager | None = None,
         retry_policy: RetryPolicy | None = None,
         loop_policy: LoopPolicy | None = None,
+        security_guard: SecurityGuard | None = None,
         max_steps: int = 10,
     ) -> None:
         if max_steps <= 0:
@@ -48,6 +55,11 @@ class AgentLoop:
             LoopDetector(loop_policy)
             if loop_policy is not None
             else None
+        )
+        self.security_guard = (
+            security_guard
+            if security_guard is not None
+            else SecurityContext()
         )
 
     def run(
@@ -129,6 +141,12 @@ class AgentLoop:
 
                 if loop_detector is not None:
                     loop_detector.record_tool_call(tool_call)
+
+                if self.security_guard is not None:
+                    self.security_guard.check(
+                        tool_call,
+                        self.security_guard.context,
+                    )
 
                 state.trajectory.add(
                     AgentStep(

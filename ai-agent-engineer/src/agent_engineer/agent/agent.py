@@ -10,6 +10,8 @@ from agent_engineer.planning.base import Planner
 from agent_engineer.memory.manager import MemoryManager
 from agent_engineer.resilience.retry import RetryPolicy
 from agent_engineer.agent.loop_guard import LoopPolicy
+from agent_engineer.security.guardrails import SecurityGuard
+from agent_engineer.security.policy import SecurityContext
 
 @dataclass(frozen=True)
 class AgentResult:
@@ -26,6 +28,7 @@ class Agent:
         memory_manager: MemoryManager | None = None,
         retry_policy: RetryPolicy | None = None,
         loop_policy: LoopPolicy | None = None,
+        security_guard: SecurityGuard | None = None,
         max_steps: int = 10,
     ) -> None:
         self._loop = AgentLoop(
@@ -35,9 +38,10 @@ class Agent:
             memory_manager=memory_manager,
             retry_policy=retry_policy,
             loop_policy=loop_policy,
+            security_guard=security_guard,
             max_steps=max_steps)
 
-    def run(self, user_input: str) -> AgentResult:
+    def run(self, user_input: str, security_context: SecurityContext | None = None) -> AgentResult:
         user_message = Message(
             role="user",
             content=user_input,
@@ -47,7 +51,7 @@ class Agent:
             messages=[user_message]
         )
 
-        state = self._loop.run(state, goal=user_input)
+        state = self._loop.run(state, goal=user_input, security_context=security_context)
 
         if self._loop.memory_manager:
             self._loop.memory_manager.remember_message(user_message)

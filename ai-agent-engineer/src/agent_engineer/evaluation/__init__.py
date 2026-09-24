@@ -22,6 +22,17 @@ from agent_engineer.evaluation.trajectory import (
     TrajectoryEvaluator,
 )
 
+from agent_engineer.evaluation.judge import (
+    InvalidJudgeResponseError,
+    Judge,
+    JudgeCriterion,
+    JudgeResult,
+    JudgeRubric,
+    LLMJudge,
+    MockJudge,
+    parse_judge_response,
+)
+
 __all__ = [
     "AnswerConstraints",
     "EvaluationCase",
@@ -34,4 +45,12 @@ __all__ = [
     "TrajectoryEvaluator",
     "EvaluationRunner",
     "ScoreWeights",
+    "Judge",
+    "JudgeCriterion",
+    "JudgeRubric",
+    "JudgeResult",
+    "LLMJudge",
+    "MockJudge",
+    "InvalidJudgeResponseError",
+    "parse_judge_response",
 ]
