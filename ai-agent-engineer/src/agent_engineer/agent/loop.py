@@ -1,4 +1,6 @@
-from agent_engineer.agent.errors import MaxStepsExceededError
+
+
+from agent_engineer.agent.errors import AgentError, MaxStepsExceededError
 from agent_engineer.agent.state import AgentState
 from agent_engineer.agent.trajectory import AgentStep, StepType
 from agent_engineer.llm.base import LLM
@@ -26,6 +28,16 @@ from agent_engineer.security.policy import (
     SecurityContext,
 )
 
+from agent_engineer.observability.trace import (
+    Trace,
+    Tracer,
+)
+
+from contextlib import nullcontext
+
+from agent_engineer.observability.event import Event
+
+
 class AgentLoop:
     def __init__(
         self,
@@ -36,6 +48,7 @@ class AgentLoop:
         retry_policy: RetryPolicy | None = None,
         loop_policy: LoopPolicy | None = None,
         security_guard: SecurityGuard | None = None,
+        tracer: Tracer | None = None,
         max_steps: int = 10,
     ) -> None:
         if max_steps <= 0:
@@ -51,12 +64,9 @@ class AgentLoop:
             if retry_policy is not None
             else None
         )
-        self.loop_detector = (
-            LoopDetector(loop_policy)
-            if loop_policy is not None
-            else None
-        )
+        self.loop_policy = loop_policy
         self.security_guard = security_guard
+        self.tracer = tracer
 
     def run(
         self, 
@@ -71,11 +81,16 @@ class AgentLoop:
             else SecurityContext()
         )
         
-        loop_detector = self.loop_detector
+        loop_detector = LoopDetector(
+            self.loop_policy
+        )
 
         if self.planner is not None and state.plan is None:
-            state.plan = self.planner.create_plan(goal or "")
+            with self._span("planner"):
+                state.plan = self.planner.create_plan(goal)
+            
             state.plan.start()
+            
             state.trajectory.add(
                 AgentStep(
                     step_number=state.step_count,
@@ -91,18 +106,56 @@ class AgentLoop:
                 )
 
             request = LLMRequest(
-                messages=self._build_messages(state, goal or ""),
+                messages=self._build_messages(state, goal),
             )
 
             def generate() -> LLMResponse:
                 return self.llm.generate(request)
 
-            if self.retry_executor is None:
-                response = generate()
-            else:
-                response = self.retry_executor.execute(generate)
+            with self._span("llm") as span:
 
-            validate_llm_response(response)
+                def on_retry(
+                        error: AgentError,
+                        retry_number: int,
+                        delay: float,
+                    ) -> None:
+                
+                        if span is not None:
+                            span.record_retry()
+                
+                            span.add_event(
+                                Event(
+                                    name="retry",
+                                    timestamp=self.trace.clock(),
+                                    attributes={
+                                        "retry_number": retry_number,
+                                        "delay": delay,
+                                        "error": (
+                                            type(error).__name__
+                                        )
+                                    }
+                                )
+                            )
+
+                if self.retry_executor is None: 
+                    response = generate()
+
+                else:
+                    response = self.retry_executor.execute(generate, on_retry=on_retry)
+
+                validate_llm_response(response)
+
+                if span is not None:
+                    span.add_usage(
+                        input_tokens=(
+                            response.input_tokens
+                        ),
+                        output_tokens=(
+                            response.output_tokens
+                        ),
+                    )
+
+                    span.attributes["model"] = response.model
 
             state.increment_step()
 
@@ -139,48 +192,67 @@ class AgentLoop:
                 )
             )
 
-            observations = []
+            observations: list[Any] = []
             for tool_call in response.tool_calls:
 
-                if loop_detector is not None:
+                with self._span(
+                    f"tool.{tool_call.name}"
+                ) as span:
+
+                    if span is not None:
+                        span.record_tool_call(tool_call)
+
+                        span.attributes["tool_name"] = tool_call.name
+
                     loop_detector.record_tool_call(tool_call)
 
-                if self.security_guard is not None:
-                    self.security_guard.check(
-                        call=tool_call,
-                        context=security_context,
+                    if self.security_guard is not None:
+                        self.security_guard.check(
+                            call=tool_call,
+                            context=security_context,
+                        )
+
+                    state.trajectory.add(
+                        AgentStep(
+                            step_number=state.step_count,
+                            step_type=StepType.TOOL_CALL,
+                            data=tool_call,
+                        )
                     )
 
-                state.trajectory.add(
-                    AgentStep(
-                        step_number=state.step_count,
-                        step_type=StepType.TOOL_CALL,
-                        data=tool_call,
+                    result = self.tool_executor.execute(tool_call)  
+                    observations.append(result)
+
+                    state.trajectory.add(
+                        AgentStep(
+                            step_number=state.step_count,
+                            step_type=StepType.OBSERVATION,
+                            data=result,
+                        )
+                    )   
+
+                    state.add_message(
+                        Message(
+                            role="tool",
+                            content=self._format_tool_output(result.output),
+                            tool_call_id=tool_call.id,
+                        )
                     )
-                )
 
-                result = self.tool_executor.execute(tool_call)  
-                observations.append(result)
-
-                state.trajectory.add(
-                    AgentStep(
-                        step_number=state.step_count,
-                        step_type=StepType.OBSERVATION,
-                        data=result,
-                    )
-                )   
-
-                state.add_message(
-                    Message(
-                        role="tool",
-                        content=self._format_tool_output(result.output),
-                        tool_call_id=tool_call.id,
-                    )
-                )
-
-            self._update_plan(goal or "", state, observations)
+            with self._span("planner"):
+                self._update_plan(goal, state, observations)
 
         return state
+
+    def _span(
+        self,
+        name: str,
+    ): 
+        if self.tracer is None:
+            return nullcontext(None)
+
+        return self.tracer.span(name)
+    
 
     @staticmethod
     def _format_tool_output(output: object) -> str:
@@ -283,6 +355,6 @@ class AgentLoop:
 
         state.plan.complete_current_step()
 
-
-
     
+
+

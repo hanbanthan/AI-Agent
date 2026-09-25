@@ -12,6 +12,13 @@ from agent_engineer.tools.types import (
     ToolResult,
 )
 
+from concurrent.futures import (
+    ThreadPoolExecutor,
+)
+
+from agent_engineer.tools.types import ToolCall, ToolResult
+
+
 class ToolExecutor:
     def __init__(self, registry: ToolRegistry) -> None:
         self.registry = registry
@@ -77,3 +84,25 @@ class ToolExecutor:
                     f"'{expected_type.__name__}', got "
                     f"'{type(value).__name__}' instead."
                 )
+
+def execute_many(
+    self,
+    calls: list[ToolCall],
+    max_workers: int = 4,
+) -> list[ToolResult]:
+
+    if not calls:
+        return []
+
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+
+        futures = [
+            executor.submit(self.execute, call)
+            for call in calls
+        ]
+
+        return [
+            future.result()
+            for future in futures
+        ]
+    

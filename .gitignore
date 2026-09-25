@@ -3,6 +3,8 @@ plan-checklist(2).md
 project-context(2).md
 theory.md
 quest.md
+agent_engineer_theory.md
+
 .env
 # Python cache
 __pycache__/

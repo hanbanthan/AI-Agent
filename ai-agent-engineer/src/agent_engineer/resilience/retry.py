@@ -45,6 +45,10 @@ class RetryExecutor:
     def execute(
         self,
         operation: Callable[[], T],
+        on_retry: (
+            Callable[[AgentError, int], None]
+            | None
+        ) = None,
     ) -> T:
 
         retries_done = 0
@@ -59,3 +63,8 @@ class RetryExecutor:
                 delay = self.policy.backoff.get_delay(retries_done)
                 self.sleeper(delay)
                 retries_done += 1
+
+                if on_retry is not None:
+                    on_retry(error, retries_done, delay)
+
+                self.sleeper(delay)

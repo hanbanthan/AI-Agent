@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 
+
 from agent_engineer.agent.loop import AgentLoop
 from agent_engineer.agent.state import AgentState
 from agent_engineer.agent.trajectory import Trajectory
@@ -12,12 +13,15 @@ from agent_engineer.resilience.retry import RetryPolicy
 from agent_engineer.agent.loop_guard import LoopPolicy
 from agent_engineer.security.guardrails import SecurityGuard
 from agent_engineer.security.policy import SecurityContext
+from agent_engineer.observability.trace import Trace
+from agent_engineer.observability.trace import Tracer
 
 @dataclass(frozen=True)
 class AgentResult:
     answer: str
     trajectory: Trajectory
     steps: int
+    trace: Trace | None = None
 
 class Agent:
     def __init__(
@@ -29,6 +33,7 @@ class Agent:
         retry_policy: RetryPolicy | None = None,
         loop_policy: LoopPolicy | None = None,
         security_guard: SecurityGuard | None = None,
+        tracer: Tracer | None = None,
         max_steps: int = 10,
     ) -> None:
         self._loop = AgentLoop(
@@ -39,6 +44,7 @@ class Agent:
             retry_policy=retry_policy,
             loop_policy=loop_policy,
             security_guard=security_guard,
+            tracer = tracer,
             max_steps=max_steps)
 
     def run(
