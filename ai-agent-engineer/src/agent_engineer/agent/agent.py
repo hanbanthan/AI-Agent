@@ -41,7 +41,11 @@ class Agent:
             security_guard=security_guard,
             max_steps=max_steps)
 
-    def run(self, user_input: str, security_context: SecurityContext | None = None) -> AgentResult:
+    def run(
+        self, 
+        user_input: str, 
+        security_context: SecurityContext | None = None
+    ) -> AgentResult:
         user_message = Message(
             role="user",
             content=user_input,
@@ -51,7 +55,11 @@ class Agent:
             messages=[user_message]
         )
 
-        state = self._loop.run(state, goal=user_input, security_context=security_context)
+        state = self._loop.run(
+            state=state, 
+            goal=user_input, 
+            security_context=security_context
+        )
 
         if self._loop.memory_manager:
             self._loop.memory_manager.remember_message(user_message)

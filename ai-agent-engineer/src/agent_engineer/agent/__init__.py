@@ -12,4 +12,13 @@ __all__ = [
     "MaxStepsExceededError",
     "StepType",
     "Trajectory",
+    "Permission",
+    "ToolPermission",
+    "ToolPermissionRegistry",
+    "SecurityPolicy",
+    "SecurityContext",
+    "InstructionTrust",
+    "DataSensitivity",
+    "InputValidator",
+    "SecurityGuard",
 ]

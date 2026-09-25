@@ -15,7 +15,7 @@ from agent_engineer.tools.types import (
     ToolCall,
 )
 
-class SecurityGuardrails:
+class SecurityGuard:
 
     def __init__(
         self,

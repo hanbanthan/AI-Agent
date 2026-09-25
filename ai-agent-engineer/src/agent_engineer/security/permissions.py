@@ -29,7 +29,6 @@ class ToolPermissionRegistry:
     def get(
         self,
         tool_name: str
-    ) -> ToolPermission:
-        return self._permissions.get(tool_name
-    )
+    ) -> ToolPermission | None:
+        return self._permissions.get(tool_name)
 

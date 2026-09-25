@@ -56,17 +56,20 @@ class AgentLoop:
             if loop_policy is not None
             else None
         )
-        self.security_guard = (
-            security_guard
-            if security_guard is not None
-            else SecurityContext()
-        )
+        self.security_guard = security_guard
 
     def run(
         self, 
         state: AgentState, 
-        goal: str | None = None
+        goal: str | None = None,
+        security_context: SecurityContext | None = None
     ) -> AgentState:
+
+        security_context = (
+            security_context
+            if security_context is not None
+            else SecurityContext()
+        )
         
         loop_detector = self.loop_detector
 
@@ -144,8 +147,8 @@ class AgentLoop:
 
                 if self.security_guard is not None:
                     self.security_guard.check(
-                        tool_call,
-                        self.security_guard.context,
+                        call=tool_call,
+                        context=security_context,
                     )
 
                 state.trajectory.add(
