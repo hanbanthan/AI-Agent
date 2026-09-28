@@ -49,6 +49,7 @@ def test_router_rule() -> None:
                 Message(
                     role="user",
                     content="Hello",
+                    tool_calls=[],
                 )
             ]
         )
@@ -86,6 +87,7 @@ def test_fallback_model() -> None:
                 Message(
                     role="user",
                     content="Hello",
+                    tool_calls=[],
                 )
             ]
         )       

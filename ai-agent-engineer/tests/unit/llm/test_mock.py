@@ -17,6 +17,7 @@ def make_request(content: str = "Hello") -> LLMRequest:
             Message(
                 role="user",
                 content=content,
+                tool_calls=[],
             )
         ]
     )

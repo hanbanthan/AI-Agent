@@ -28,9 +28,9 @@ class InputValidator:
         call: ToolCall,
     ) -> None:
 
-        if not isinstance(call, dict):
+        if not isinstance(call, ToolCall):
             raise SecurityValidationError(
-                "Tool call must be a dictionary"
+                "Tool call must be a ToolCall"
             )
 
         for name, value in call.arguments.items():

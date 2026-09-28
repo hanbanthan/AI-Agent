@@ -23,6 +23,7 @@ def test_irrelevant_message_is_not_stored() -> None:
         Message(
             role="user",
             content="What is Python?",
+            tool_calls=[],
         )
     )
 
@@ -38,6 +39,7 @@ def test_relevant_message_is_stored() -> None:
         Message(
             role="user",
             content="I prefer Python.",
+            tool_calls=[],
         )
     )
 

@@ -34,6 +34,7 @@ def test_memory_policy(
     message = Message(
         role=role,
         content=content,
+        tool_calls=[],
     )
 
     assert policy.should_store_memory(message) is expected

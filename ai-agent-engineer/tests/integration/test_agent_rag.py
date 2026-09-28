@@ -51,7 +51,7 @@ def test_agent_can_use_rag_tool(
 
     agent = Agent(
         llm=llm,
-        tool_executor=executor,
+        tools=registry,
     )
 
     result = agent.run(

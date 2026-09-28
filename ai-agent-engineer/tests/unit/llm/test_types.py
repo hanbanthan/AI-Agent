@@ -10,6 +10,7 @@ def test_message() -> None:
     message = Message(
         role="user",
         content="Hello",
+        tool_calls=[],
     )
 
     assert message.role == "user"
@@ -29,6 +30,7 @@ def test_llm_request() -> None:
             Message(
                 role="user",
                 content="What is an AI agent?",
+                tool_calls=[],
             )
         ],
         temperature=0.2,

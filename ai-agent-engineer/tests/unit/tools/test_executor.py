@@ -148,7 +148,7 @@ def test_tool_observation_is_sent_back_to_llm(
 
     agent = Agent(
         llm=llm,
-        tool_executor=executor,
+        tools=registry,
     )
 
     agent.run("Research AI agents")

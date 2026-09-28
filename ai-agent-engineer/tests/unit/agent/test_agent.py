@@ -2,6 +2,8 @@ import pytest
 
 from agent_engineer.agent import Agent, MaxStepsExceededError, StepType
 from agent_engineer.llm import LLMResponse, MockLLM, ToolCall
+from agent_engineer.tools.executor import ToolExecutor
+from agent_engineer.tools.registry import ToolRegistry
 
 
 def test_agent_returns_final_answer() -> None:
@@ -48,7 +50,7 @@ def test_agent_sends_user_message_to_llm() -> None:
     assert request.messages[0].role == "user"
     assert request.messages[0].content == "Hello agent"
 
-def test_agent_stops_at_max_steps() -> None:
+def test_agent_stops_at_max_steps(search_tool) -> None:
     non_final_response = LLMResponse(
         content=None,
         model="mock-model",
@@ -56,7 +58,7 @@ def test_agent_stops_at_max_steps() -> None:
             ToolCall(
                 id="call-1",
                 name="search",
-                arguments={},
+                arguments={"query": "Never finish"},
             )
         ],
     )
@@ -69,8 +71,12 @@ def test_agent_stops_at_max_steps() -> None:
         ]
     )
 
+    registry = ToolRegistry()
+    registry.register(search_tool)
+
     agent = Agent(
         llm=llm,
+        tools=registry,
         max_steps=2,
     )
 

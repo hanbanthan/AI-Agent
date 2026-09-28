@@ -15,6 +15,7 @@ def test_agent_state_add_message() -> None:
     message = Message(
         role="user",
         content="Hello",
+        tool_calls=[],
     )
 
     state.add_message(message)

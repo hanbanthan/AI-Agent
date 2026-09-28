@@ -1,3 +1,5 @@
+from matplotlib.units import registry
+
 from agent_engineer.agent import Agent
 from agent_engineer.llm import (
     LLMResponse,
@@ -33,7 +35,8 @@ def test_agent_receives_relevant_memory() -> None:
 
     agent = Agent(
         llm=llm,
-        memory_manager=manager,
+        tools=registry,
+        memory=manager,
     )
 
     result = agent.run(
@@ -74,7 +77,7 @@ def test_agent_does_not_store_every_message() -> None:
 
     agent = Agent(
         llm=llm,
-        memory_manager=manager,
+        memory=manager,
     )
 
     agent.run("What is Python?")
